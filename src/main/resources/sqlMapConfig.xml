@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+<!--    配置环境-->
+    <!--可以把数据库配置直接写在dataSource标签下的property标签中，也可以用properties配置resource位置。-->
+    <properties resource="jdbcConfig.properties"/>
+    <!--url的写法，需要文件协议-->
+<!--    <properties url="file:///D:/JavaProjects/mybatis/mybatisLearn1/src/main/resources/jdbcConfig.properties"/>-->
+
+    <typeAliases>
+<!--        <typeAlias type="mybatis.learn.domain.User" alias="user"/>  &lt;!&ndash;制定了别名之后，就不再区分大小写了。&ndash;&gt;-->
+        <package name="mybatis.learn.domain"/>  <!-- 会用类名作为别名，制定了别名之后，就不再区分大小写了 -->
+    </typeAliases>
+
+
+
+    <environments default="mysql">
+<!--        配置mysql环境-->
+        <environment id="mysql">
+<!--            配置事务类型-->
+            <transactionManager type="JDBC"/>
+<!--            配置连接池-->
+            <dataSource type="POOLED">
+<!--                四个基本信息-->
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+
+    </environments>
+
+<!--指定映射配置文件的位置，每个dao独立的配置文件,使用resource属性-->
+<!--如果使用注解的话,则使用Dao文件的全限定路径-->
+    <mappers>
+<!--        <mapper resource="mybatis/learn/dao/userDao-depre.xml"/>-->
+        <mapper class="mybatis.learn.dao.UserDao"/>    <!--使用注解的映射-->
+<!--        <package name="mybatis.learn.dao"/>  &lt;!&ndash;直接配置这个包里面的类为映射接口&ndash;&gt;-->
+    </mappers>
+</configuration>
